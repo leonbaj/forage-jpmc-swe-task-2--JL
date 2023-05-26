@@ -8,6 +8,11 @@ import './App.css';
  */
 interface IState {
   data: ServerRespond[],
+  /**
+   * interface is now requiring entities to have both these values. whenever type Istate is used,
+   * the application knows it should have Data and ShowGraph as properties in order to be valid.
+   */
+  showGraph: boolean,
 }
 
 /**
