@@ -49,6 +49,9 @@ class Graph extends Component<IProps, {}> {
     }
     if (this.table) {
       // Load the `table` in the `<perspective-viewer>` DOM reference.
+      // Add more Perspective configurations here.
+      elem.load(this.table);      
+      
       // view attribute allows us to graph the type of continouse line graph we want and use y_line to get that.
       elem.setAttribute('view', 'y_line');
       // column-pivots will allow us to differentiate stock ABC from DEF and use stock as its value. 
@@ -60,8 +63,7 @@ class Graph extends Component<IProps, {}> {
       // aggregates attribute will handle duplicated data. 
       elem.setAttribute('aggregates','{"stock" : "distinct count","top_ask_price": "avg","top_bid_price":"avg", "timestamp" : "distinctcount" }');
   
-      // Add more Perspective configurations here.
-      elem.load(this.table);
+
     }
   }
 
