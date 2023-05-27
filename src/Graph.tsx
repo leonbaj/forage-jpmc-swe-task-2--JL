@@ -36,7 +36,7 @@ class Graph extends Component<IProps, {}> {
     // Get element to attach the table from the DOM.
     // can const elm directly assigned to document.getElement due to the change earlier extending HTMLElment
     const elem = document.getElementsByTagName('perspective-viewer')[0] as unknown as PerspectiveViewerElement;
-
+    
     const schema = {
       stock: 'string',
       top_ask_price: 'float',
@@ -49,7 +49,17 @@ class Graph extends Component<IProps, {}> {
     }
     if (this.table) {
       // Load the `table` in the `<perspective-viewer>` DOM reference.
-
+      // view attribute allows us to graph the type of continouse line graph we want and use y_line to get that.
+      elem.setAttribute('view', 'y_line');
+      // column-pivots will allow us to differentiate stock ABC from DEF and use stock as its value. 
+      elem.setAttribute('column-pivots', '["stock"]');
+      // row-pivots are used for our x-axis, it will be map each datapoint based on its timestamp. 
+      elem.setAttribute('row-pivots', '["timestamp"]');
+      // columns attribute will let us focus on top_ask_price data on the y -axis vs all of the stock data (ex. stock, timestamp, top_bid_price).
+      elem.setAttribute('columns', '["top_ask_price"]');
+      // aggregates attribute will handle duplicated data. 
+      elem.setAttribute('aggregates','{"stock" : "distinct count","top_ask_price": "avg","top_bid_price":"avg", "timestamp" : "distinctcount" }');
+  
       // Add more Perspective configurations here.
       elem.load(this.table);
     }
